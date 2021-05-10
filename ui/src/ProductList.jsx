@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-expressions */
 import React from 'react';
-import ProductTable from './ProductTable';
-import ProductAdd from './ProductAdd';
-import graphQLFetch from './graphQLFetch';
+import ProductTable from './ProductTable.jsx';
+import ProductAdd from './ProductAdd.jsx';
+import graphQLFetch from './graphQLFetch.js';
 
 class ProductList extends React.Component {
   constructor() {
@@ -78,6 +78,7 @@ class ProductList extends React.Component {
       <div style={{ color: 'white' }}>
         <p>
           Showing
+          {' '}
           {count}
           {' '}
           available products

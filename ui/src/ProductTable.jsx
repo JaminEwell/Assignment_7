@@ -7,7 +7,6 @@ import ProductRow from './ProductRow.jsx';
 
 const ProductTable = ({ products, deleteProduct }) => (
   <div>
-    <p>Showing all available products</p>
     <hr />
     <table>
       <thead>
