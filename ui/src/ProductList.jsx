@@ -1,9 +1,8 @@
-/* eslint-disable import/extensions */
+/* eslint-disable no-unused-expressions */
 import React from 'react';
-
-import ProductTable from './ProductTable.jsx';
-import ProductAdd from './ProductAdd.jsx';
-import graphQLFetch from './graphQLFetch.js';
+import ProductTable from './ProductTable';
+import ProductAdd from './ProductAdd';
+import graphQLFetch from './graphQLFetch';
 
 class ProductList extends React.Component {
   constructor() {
@@ -11,6 +10,7 @@ class ProductList extends React.Component {
     this.state = { products: [] };
     this.createProduct = this.createProduct.bind(this);
     this.deleteProduct = this.deleteProduct.bind(this);
+    this.productCount;
   }
 
   componentDidMount() {
@@ -18,6 +18,7 @@ class ProductList extends React.Component {
   }
 
   async loadData() {
+    this.loadCount();
     const query = `query {
       productList {
         id Category Name Price Image
@@ -27,6 +28,16 @@ class ProductList extends React.Component {
     const data = await graphQLFetch(query);
     if (data) {
       this.setState({ products: data.productList });
+    }
+  }
+
+  async loadCount() {
+    const query = `query {
+      productCount
+    }`;
+    const data = await graphQLFetch(query);
+    if (data) {
+      this.setState({ count: data.productCount });
     }
   }
 
@@ -40,6 +51,7 @@ class ProductList extends React.Component {
     const data = await graphQLFetch(query, { product });
     if (data) {
       this.loadData();
+      this.loadCount();
     }
   }
 
@@ -56,13 +68,21 @@ class ProductList extends React.Component {
     }
     alert('Product deleted successfully'); // eslint-disable-line no-alert
     this.loadData();
+    this.loadCount();
     return true;
   }
 
   render() {
-    const { products } = this.state;
+    const { products, count } = this.state;
     return (
-      <div style={{ color: 'black' }}>
+      <div style={{ color: 'white' }}>
+        <p>
+          Showing
+          {count}
+          {' '}
+          available products
+        </p>
+        <hr />
         <ProductTable products={products} deleteProduct={this.deleteProduct} />
         <ProductAdd createProduct={this.createProduct} />
       </div>

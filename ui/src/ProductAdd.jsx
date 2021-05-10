@@ -40,7 +40,7 @@ class ProductAdd extends React.Component {
   render() {
     return (
       <div style={{ paddingTop: 20 }}>
-        <h3>Add a new product to Inventory</h3>
+        <h3>Add new product to Inventory</h3>
         <hr />
         <Form name="productAdd" onSubmit={this.handleSubmit}>
           <div className="formContainer">
