@@ -34,6 +34,7 @@ input ProductUpdateInputs {
 type Query {
   productList: [Product!]!
   Product(id: Int!): Product!
+  productCount: Int
 }
 
 type Mutation {
