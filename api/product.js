@@ -37,6 +37,22 @@ async function productDelete(_, { id }) {
   return true;
 }
 
+async function counts() {
+  const db = getDb();
+  const results = await db
+    .collection('products')
+    .aggregate([
+      {
+        $group: {
+          _id: null,
+          count: { $sum: 1 },
+        },
+      },
+    ])
+    .toArray();
+  return results[0].count;
+}
+
 module.exports = {
-  productList, productAdd, productGet, productUpdate, productDelete,
+  productList, productAdd, productGet, productUpdate, productDelete, counts,
 };
